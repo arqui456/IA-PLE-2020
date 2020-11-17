@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+	<!-- insert your AIML categories here -->
+	
+	<category>
+	    <pattern>*</pattern>
+	    <template>
+	        Não entendi o que você quis dizer
+	    </template>
+	</category>
+	
+	<category>
+	    <pattern>CRIAR CONTA</pattern>
+	    <template>
+	        <think><set name="topic">creating</set></think>
+	        Vamos dar inicio ao processor de criação de conta em nosso banco.<br></br>
+	        Vou precisar lhe fazer algumas perguntas, mas não se preocupe que o 
+	        processo é bem rapidinho! <br></br>
+            Qual é o seu nome completo?<br></br>
+	    </template>
+	</category>
+	
+	<category>
+	    <pattern>* CONTA *</pattern>
+	    <template>
+	        <srai>CRIAR CONTA</srai>
+	    </template>
+	</category>
+
+	<category>
+	    <pattern>* CONTA</pattern>
+	    <template>
+	        <srai>CRIAR CONTA</srai>
+	    </template>
+	</category>
+	
+	<category>
+	    <pattern>CONTA</pattern>
+	    <template>
+	        <srai>CRIAR CONTA</srai>
+	    </template>
+	</category>
+	
+	<category>
+	    <pattern>CONTA *</pattern>
+	    <template>
+	        <srai>CRIAR CONTA</srai>
+	    </template>
+	</category>
+	
+
+<topic name="creating">
+    
+    <category>
+        <pattern>*</pattern>
+        <that>Qual é o seu nome completo</that>
+        <template>
+            <think><set name="nome"><star></star></set></think>
+            Seu nome é: <get name="nome"></get>?
+            
+            <button>
+                SIM
+            </button>
+            
+            <button>
+                NÃO
+            </button>
+            
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SIM</pattern>
+        <template>
+            Seja bem vindo, <get name="nome"></get>!<br></br>
+            <think><set name="topic">otherbank</set></think>
+            <srai>otherbank</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>NÃO</pattern>
+        <template>
+            <srai>CRIAR CONTA</srai>
+        </template>
+    </category>
+    
+</topic>
+
+<topic name="otherbank">
+    
+    <category>
+        <pattern>otherbank</pattern>
+        <template>
+            Já possui conta em outro banco ?
+            
+            <button>
+                SIM
+            </button>
+            
+            <button>
+                NÃO
+            </button>
+    
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SIM</pattern>
+        <template>
+            Gostaria de realizar a portabilidade para nosso banco? <br></br>
+            <button>
+                REALIZAR PORTABILIDADE
+            </button>
+            <button>
+                NÃO REALIZAR PORTABILIDADE
+            </button>
+            
+        </template>
+    </category>
+    
+    <category>
+        <pattern>NÃO</pattern>
+        <template>
+            <think><set name="topic">deposit</set></think>
+            <think><set name="wantedPortability">Não fez</set></think>
+            <srai>deposit</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>REALIZAR PORTABILIDADE</pattern>
+        <template>
+            <think><set name="wantedPortability">Fez</set></think>
+            De que banco quer fazer a portabilidade?
+        </template>
+    </category>
+    
+    <categoty>
+        <pattern>NÃO REALIZAR PORTABILIDADE</pattern>
+        <template>
+            <think><set name="wantedPortability">Não fez</set></think>
+            <think><set name="topic">deposit</set></think>
+            <srai>deposit</srai>
+        </template>
+    </categoty>
+    
+    <category>
+        <pattern>*</pattern>
+        <that>De que banco quer fazer a portabilidade</that>
+        <template>
+            <think><set name="banco"><star></star></set></think>
+            Otimo! ja estamos entrando em contato com o <get name="banco"></get>
+            <br></br>
+            <think><set name="topic">deposit</set></think>
+            <srai>deposit</srai>
+        </template>
+    </category>
+    
+</topic>
+
+<topic name="deposit">
+    
+    <category>
+        <pattern>deposit</pattern>
+        <template>
+            Quer depositar algum valor inicial na conta?
+            <button>
+                SIM
+            </button>
+            <button>
+                NÃO
+            </button>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SIM</pattern>
+        <template>
+            Quanto quer depositar na conta?
+        </template>
+    </category>
+    
+    <category>
+        <pattern>NÃO</pattern>
+        <template>
+            <think><set name="topic">loan</set></think>
+            <think><set name="valor">0</set></think>
+            <srai>loan</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>*</pattern>
+        <that>Quanto quer depositar na conta</that>
+        <!-- TODO: Descobrir se tem como colocar uma condição para só aceitar numeros -->
+        <template>
+            <think><set name="valor"><star></star></set></think>
+            Excelente!, a quantia de <get name="valor"></get> logo estara disponível
+            no seu saldo!
+            <br></br>
+            <think><set name="topic">loan</set></think>
+            <srai>loan</srai>
+        </template>
+    </category>
+    
+</topic>
+
+<topic name="loan">
+    
+    <category>
+        <pattern>loan</pattern>
+        <template>
+            Estamos quase lá!, deixa eu fazer só mais uma pergunta<br></br>
+            Você está interessado em realizar um empréstivo pelo nosso banco?
+            <button>
+                SIM
+            </button>
+            <button>
+                NÃO
+            </button>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>SIM</pattern>
+        <template>
+            Que legal, no ICBANK temos vários tipos de empréstimos 
+            para você escolher após concluirmos seus cadastro.<br></br>
+            <think><set name="wantedLoan">Quis</set></think>
+            <think><set name="topic">finish</set></think>
+            <srai>finish</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>NÃO</pattern>
+        <template>
+            <think><set name="topic">finish</set></think>
+            <think><set name="wantedLoan">Não Quis</set></think>
+            <srai>finish</srai>
+        </template>
+    </category>
+    
+</topic>
+
+<topic name="finish">
+    
+    <category>
+        <pattern>finish</pattern>
+        <template>
+            Parabéns seu cadastro está concluído!
+            <br></br>
+            Seja bem Vindo a família ICBANK !
+            Você pode verificar seus dados abaixo: 
+            <br></br>
+            <br></br>
+            Nome: <get name="nome"></get><br></br>
+            Quis Empréstimo ? <get name="wantedLoan"></get><br></br>
+            Fez portabilidade: <get name="wantedPortability"></get><br></br>
+            Valor inicial da conta: <get name="valor"></get> <br></br>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>NOVA CONTA</pattern>
+        <template>
+             <think><set name="topic"></set></think>
+             <srai>CRIAR CONTA</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>VER DADOS</pattern>
+        <template>
+            <srai>finish</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>*</pattern>
+        <template>
+            Você quer criar uma nova conta? ou quer ver seus dados novamente ?
+            <button>
+                NOVA CONTA
+            </button>
+            <button>
+                VER DADOS
+            </button>
+        </template>
+    </category>
+    
+</topic>
+
+</aiml>
