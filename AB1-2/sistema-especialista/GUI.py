@@ -1,7 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QCheckBox, QPushButton, QGroupBox, QTextBrowser, QLabel
 from PyQt5 import QtCore
 from PyQt5 import QtGui
-class Example(QMainWindow):
+from engine.inference import Inference
+import math
+
+class GUI(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -53,7 +56,7 @@ class Example(QMainWindow):
         cb9.resize(200, 25)
         cb9.stateChanged.connect(self.checklist8)
 
-        cb10 = QCheckBox('Inflamação nas articulações', self)
+        cb10 = QCheckBox('Inflamação', self)
         cb10.move(20, 200)
         cb10.resize(220, 25)
         cb10.stateChanged.connect(self.checklist9)
@@ -68,13 +71,13 @@ class Example(QMainWindow):
         cb12.resize(200, 25)
         cb12.stateChanged.connect(self.checklist11)
 
-        cb13 = QCheckBox('Caroço nos Ossos', self)
-        cb13.move(20, 260)
+        cb13 = QCheckBox('Dor nos ossos', self)
+        cb13.move(20, 280)
         cb13.resize(200, 25)
         cb13.stateChanged.connect(self.checklist12)
 
-        cb14 = QCheckBox('Dor nos ossos', self)
-        cb14.move(20, 280)
+        cb14 = QCheckBox('Caroço nos Ossos', self)
+        cb14.move(20, 260)
         cb14.resize(200, 25)
         cb14.stateChanged.connect(self.checklist13)
 
@@ -204,10 +207,12 @@ class Example(QMainWindow):
         cb39.stateChanged.connect(self.checklist38)
 
         groubBox = QGroupBox("Resultados", self)
-        groubBox.move(500, 50)
+        groubBox.move(500, 5)
+        groubBox.resize(250,50)
 
         groubBox2 = QGroupBox("Certeza", self)
-        groubBox2.move(600, 50)
+        groubBox2.move(500, 60)
+        groubBox2.resize(200,25)
 
         self.resultados = QTextBrowser(groubBox)
         self.certeza = QTextBrowser(groubBox2)
@@ -215,7 +220,7 @@ class Example(QMainWindow):
         #resultados.setGeometry(QtCore.QRect(10, 90, 100, 100))
 
         accept_button = QPushButton(self)
-        accept_button.setText("Accept")
+        accept_button.setText("Inferir")
         accept_button.move(800, 50)
         accept_button.clicked.connect(self.accepted)
 
@@ -234,118 +239,128 @@ class Example(QMainWindow):
         self.symptoms[1] = not self.symptoms[1]
 
     def checklist2(self):
-        self.symptoms[0] = not self.symptoms[2]
+        self.symptoms[2] = not self.symptoms[2]
 
     def checklist3(self):
-        self.symptoms[1] = not self.symptoms[3]
+        self.symptoms[3] = not self.symptoms[3]
 
     def checklist4(self):
-        self.symptoms[0] = not self.symptoms[4]
+        self.symptoms[4] = not self.symptoms[4]
 
     def checklist5(self):
-        self.symptoms[1] = not self.symptoms[5]
+        self.symptoms[5] = not self.symptoms[5]
 
     def checklist6(self):
-        self.symptoms[0] = not self.symptoms[6]
+        self.symptoms[6] = not self.symptoms[6]
 
     def checklist7(self):
-        self.symptoms[1] = not self.symptoms[7]
+        self.symptoms[7] = not self.symptoms[7]
 
     def checklist8(self):
-        self.symptoms[0] = not self.symptoms[8]
+        self.symptoms[8] = not self.symptoms[8]
 
     def checklist9(self):
-        self.symptoms[1] = not self.symptoms[9]
+        self.symptoms[9] = not self.symptoms[9]
 
     def checklist10(self):
-        self.symptoms[0] = not self.symptoms[10]
+        self.symptoms[10] = not self.symptoms[10]
 
     def checklist11(self):
-        self.symptoms[1] = not self.symptoms[11]
+        self.symptoms[11] = not self.symptoms[11]
 
     def checklist12(self):
-        self.symptoms[0] = not self.symptoms[12]
+        self.symptoms[12] = not self.symptoms[12]
 
     def checklist13(self):
-        self.symptoms[1] = not self.symptoms[13]
+        self.symptoms[13] = not self.symptoms[13]
 
     def checklist14(self):
-        self.symptoms[0] = not self.symptoms[14]
+        self.symptoms[14] = not self.symptoms[14]
 
     def checklist15(self):
-        self.symptoms[1] = not self.symptoms[15]
+        self.symptoms[15] = not self.symptoms[15]
 
     def checklist16(self):
-        self.symptoms[0] = not self.symptoms[16]
+        self.symptoms[16] = not self.symptoms[16]
 
     def checklist17(self):
-        self.symptoms[1] = not self.symptoms[17]
+        self.symptoms[17] = not self.symptoms[17]
 
     def checklist18(self):
-        self.symptoms[0] = not self.symptoms[18]
+        self.symptoms[18] = not self.symptoms[18]
 
     def checklist19(self):
-        self.symptoms[1] = not self.symptoms[19]
+        self.symptoms[19] = not self.symptoms[19]
 
     def checklist20(self):
-        self.symptoms[0] = not self.symptoms[20]
+        self.symptoms[20] = not self.symptoms[20]
 
     def checklist21(self):
-        self.symptoms[1] = not self.symptoms[21]
+        self.symptoms[21] = not self.symptoms[21]
 
     def checklist22(self):
-        self.symptoms[0] = not self.symptoms[22]
+        self.symptoms[22] = not self.symptoms[22]
 
     def checklist23(self):
-        self.symptoms[1] = not self.symptoms[23]
+        self.symptoms[23] = not self.symptoms[23]
 
     def checklist24(self):
-        self.symptoms[0] = not self.symptoms[24]
+        self.symptoms[24] = not self.symptoms[24]
 
     def checklist25(self):
-        self.symptoms[1] = not self.symptoms[25]
+        self.symptoms[25] = not self.symptoms[25]
 
     def checklist26(self):
-        self.symptoms[0] = not self.symptoms[26]
+        self.symptoms[26] = not self.symptoms[26]
 
     def checklist27(self):
-        self.symptoms[1] = not self.symptoms[27]
+        self.symptoms[27] = not self.symptoms[27]
 
     def checklist28(self):
-        self.symptoms[0] = not self.symptoms[28]
+        self.symptoms[28] = not self.symptoms[28]
 
     def checklist29(self):
-        self.symptoms[1] = not self.symptoms[29]
+        self.symptoms[29] = not self.symptoms[29]
 
     def checklist30(self):
-        self.symptoms[0] = not self.symptoms[30]
+        self.symptoms[30] = not self.symptoms[30]
 
     def checklist31(self):
-        self.symptoms[1] = not self.symptoms[31]
+        self.symptoms[31] = not self.symptoms[31]
 
     def checklist32(self):
-        self.symptoms[0] = not self.symptoms[32]
+        self.symptoms[32] = not self.symptoms[32]
 
     def checklist33(self):
-        self.symptoms[1] = not self.symptoms[33]
+        self.symptoms[33] = not self.symptoms[33]
 
     def checklist34(self):
-        self.symptoms[0] = not self.symptoms[34]
+        self.symptoms[34] = not self.symptoms[34]
 
     def checklist35(self):
-        self.symptoms[1] = not self.symptoms[35]
+        self.symptoms[35] = not self.symptoms[35]
 
     def checklist36(self):
-        self.symptoms[0] = not self.symptoms[36]
+        self.symptoms[36] = not self.symptoms[36]
 
     def checklist37(self):
-        self.symptoms[1] = not self.symptoms[37]
+        self.symptoms[37] = not self.symptoms[37]
 
     def checklist38(self):
-        self.symptoms[0] = not self.symptoms[38]
+        self.symptoms[38] = not self.symptoms[38]
 
     def accepted(self):
-        print(self.symptoms)
-        self.resultados.setText("Glaucoma")
-        self.certeza.setText("100%")
-
+        userInput = self.symptoms
+        #print(self.symptoms)
+        
+        knowledgeBaseFile = "./data/diseases/knowledge.json"
+        clauseBaseFile = "./data/diseases/clause.json"
+        inferenceEngine = Inference()
+        inferenceEngine.startEngine(knowledgeBaseFile,
+                            clauseBaseFile,
+                            userInput,
+                            verbose=True,
+                            method=inferenceEngine.BACKWARD)
+        #print(inferenceEngine.clause)
+        self.resultados.setText(inferenceEngine.clause)
+        self.certeza.setText(str(math.ceil(inferenceEngine.percent)) + "% de confiança")

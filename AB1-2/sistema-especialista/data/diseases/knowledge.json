@@ -1,40 +1,40 @@
 {
   "target": [
     {
-      "name": "Asthma",
+      "name": "Asma",
       "rules": {
-        "1": "wheezing",
-        "2": "shortness of breath",
-        "3": "tight chest",
-        "4": "coughing",
-        "5": "fast breathing",
-        "6": "feeling drowsy"
+        "1": "wheezing",                      
+        "2": "shortness of breath",           
+        "3": "tight chest",                  
+        "4": "coughing",                      
+        "5": "fast breathing",                
+        "6": "feeling drowsy"                 
       }
     },
     {
-      "name": "Arthritis",
+      "name": "Artrite",
       "rules": {
         "1": "joint pain",
         "2": "tenderness",
         "3": "stiffness",
-        "4": "inflammation in joints",
+        "4": "inflammation",
         "5": "red skin",
         "6": "weakness"
       }
     },
     {
-      "name": "Bone Cancer",
+      "name": "Câncer nos Ossos",
       "rules": {
         "1": "bone pain",
         "2": "inflammation",
         "3": "lumps on bones",
         "4": "weak bones",
         "5": "fractures",
-        "6": "joint pains"
+        "6": "joint pain"
       }
     },
     {
-      "name": "Brain Tumors",
+      "name": "Tumor no Cerebro",
       "rules": {
         "1": "headaches",
         "2": "seizures",
@@ -46,7 +46,7 @@
       }
     },
     {
-      "name": "Bronchitis",
+      "name": "Bronquite",
       "rules": {
         "1": "coughing",
         "2": "fevers",
@@ -55,7 +55,7 @@
       }
     },
     {
-      "name": "Chest Infection",
+      "name": "Infecção no peito",
       "rules": {
         "1": "coughing",
         "2": "mucus",
@@ -67,7 +67,7 @@
       }
     },
     {
-      "name": "Common Cold",
+      "name": "Gripe",
       "rules": {
         "1": "runny nose",
         "2": "block nose",
@@ -77,7 +77,7 @@
       }
     },
     {
-      "name": "Anxiety",
+      "name": "Ansiedade",
       "rules": {
         "1": "stress",
         "2": "headaches",

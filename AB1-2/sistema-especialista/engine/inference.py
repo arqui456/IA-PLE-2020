@@ -49,8 +49,10 @@ class Inference:
         self.__clauseBase = None
         self.__verbose = None
         self.__method = None
+        self.__userInput = None
 
-    def startEngine(self, knowledgeBase, clauseBase, verbose=False, method="forward"):
+
+    def startEngine(self, knowledgeBase, clauseBase, userInput, verbose=False, method="forward"):
         """
         Read the files to parse and other options. Initialize the parsers and get the parsed values
 
@@ -76,6 +78,7 @@ class Inference:
         self.__clauseBase = self.__clauseParser.getClauseBase(clauseBase)
         self.__verbose = verbose
         self.__method = method
+        self.__userInput = userInput
 
         # asking the questions from the Clause base
         self.__askQuestion()
@@ -86,14 +89,19 @@ class Inference:
         """
         for clause in self.__clauseBase:
             print()
-            userInput = input(Log.modes['WARN'] + AVATAR + " >>> " + clause.getClause() + "\nYou >>> ").strip()
-            output = self.__inferenceResolve(userInput)
+            #userInput = input(Log.modes['WARN'] + AVATAR + " >>> " + clause.getClause() + "\nYou >>> ").strip()
+            
+            output = self.__inferenceResolve(self.__userInput)
             if output[0]:
                 Log.i(clause.getPositive() + output[1])
+                self.clause = clause.getPositive() + output[1]
+                self.percent = output[2]
             else:
                 Log.i(clause.getNegative() + output[1])
+                self.clause = clause.getNegative() + output[1]
+                self.percent = output[2]
 
-        Log.i("Hope that you are satisfied with your answers !")
+        Log.i("Espero que esteja satisfeito com a resposta!")
 
     def __inferenceResolve(self, userInput):
         """
@@ -111,8 +119,9 @@ class Inference:
             bool : True for finding a match and string : A formatted string with target and percentage
 
         """
-        userInputs = userInput.split(USER_INPUT_SEP)
         userKnowledge = Knowledge()
+        userInputs = self.__parseGUIInput(userInput)
+        #userInputs = userInput.split(USER_INPUT_SEP)
 
         # creating a knowledge base of the user input
         for userIn in userInputs:
@@ -169,7 +178,7 @@ class Inference:
         # returning the first match if it greater than the MIN
         for target, percent in matchesRules.items():
             if percent >= PERCENT_MATCH:
-                return True, target + " " + str(percent) + " % sure"
+                return True, target, percent
             else:
                 return False, target
 
@@ -226,6 +235,91 @@ class Inference:
         # returning the highest matches target if is greater than the MIN
         for target, percent in matchesRules.items():
             if percent >= PERCENT_MATCH:
-                return True, target + " " + str(percent) + " % sure"
+                return True, target ,percent
             else:
-                return False, target
+                return False, target, percent
+
+    def __parseGUIInput(self, userInpute):
+        userInput = []
+        rule = userInpute
+
+        if rule[0]:
+            userInput.append("wheezing")
+        if rule[1]:
+            userInput.append("shortness of breath")
+        if rule[2]:
+            userInput.append("tight chest")
+        if rule[3]:
+            userInput.append("coughing")
+        if rule[4]:
+            userInput.append("fast breathing")
+        if rule[5]:
+            userInput.append("feeling drowsy")
+        if rule[6]:
+            userInput.append("joint pain")
+        if rule[7]:
+            userInput.append("tenderness")
+        if rule[8]:
+            userInput.append("stiffness")
+        if rule[9]:
+            userInput.append("inflammation")
+        if rule[10]:
+            userInput.append("red skin")
+        if rule[11]:
+            userInput.append("weakness")
+        if rule[12]:
+            userInput.append("bone pain")
+        if rule[13]:
+            userInput.append("lumps on bones")
+        if rule[14]:
+            userInput.append("weak bones")
+        if rule[15]:
+            userInput.append("fractures")     
+        if rule[16]:
+            userInput.append("headaches")
+        if rule[17]:
+            userInput.append("seizures")
+        if rule[18]:
+            userInput.append("fits")
+        if rule[19]:
+            userInput.append("mental changes")           
+        if rule[20]:
+            userInput.append("behavioural changes")
+        if rule[21]:
+            userInput.append("memory problems")
+        if rule[22]:
+            userInput.append("paralyses of parts of body")
+        if rule[23]:
+            userInput.append("fevers")
+        if rule[24]:
+            userInput.append("asthma")
+        if rule[25]:
+            userInput.append("heart pain")
+        if rule[26]:
+            userInput.append("mucus")
+        if rule[27]:
+            userInput.append("rapid heartbeat")
+        if rule[28]:
+            userInput.append("chest pain")
+        if rule[29]:
+            userInput.append("runny nose")
+        if rule[30]:
+            userInput.append("block nose")
+        if rule[31]:
+            userInput.append("sneezing")
+        if rule[32]:
+            userInput.append("sore throat")
+        if rule[33]:
+            userInput.append("throat pain")
+        if rule[34]:
+            userInput.append("stress")
+        if rule[35]:
+            userInput.append("loss of appetite")
+        if rule[36]:
+            userInput.append("no sleep")
+        if rule[37]:
+            userInput.append("mood swings")
+        if rule[38]:
+            userInput.append("dizziness")
+
+        return userInput

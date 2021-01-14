@@ -1,9 +1,9 @@
 {
   "1": {
-    "question": "Tell me how do you feel?",
+    "question": " Diga-me, como esta se sentindo?",
     "answer": {
-      "positive": "I think you show symptoms of ",
-      "negative": "I am not sure but you show some signs of "
+      "positive": "Acredito que tenha sintomas de ",
+      "negative": "Não tenho certeza, mas você tem alguns sinais de "
     }
   }
 }
