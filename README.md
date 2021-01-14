@@ -1,2 +1,2 @@
 # IA-PLE-2020
-Contains the files for icbank
+Projetos para a matéria de IA, UFAL PLE 2020
