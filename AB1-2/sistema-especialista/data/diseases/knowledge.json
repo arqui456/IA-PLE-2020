@@ -3,88 +3,88 @@
     {
       "name": "Asma",
       "rules": {
-        "1": "wheezing",                      
-        "2": "shortness of breath",           
-        "3": "tight chest",                  
-        "4": "coughing",                      
-        "5": "fast breathing",                
-        "6": "feeling drowsy"                 
+        "1": "Respiração Ofegante",                      
+        "2": "Falta de Ar",           
+        "3": "Peito Apertado",                  
+        "4": "Tosse",                      
+        "5": "Respiração Rápida",                
+        "6": "Sonolência"                 
       }
     },
     {
       "name": "Artrite",
       "rules": {
-        "1": "joint pain",
-        "2": "tenderness",
-        "3": "stiffness",
-        "4": "inflammation",
-        "5": "red skin",
-        "6": "weakness"
+        "1": "Dores nas articulações",
+        "2": "Ternura",
+        "3": "Rigidez",
+        "4": "Inflamação",
+        "5": "Pele Vermelha",
+        "6": "Fraqueza"
       }
     },
     {
       "name": "Câncer nos Ossos",
       "rules": {
-        "1": "bone pain",
-        "2": "inflammation",
-        "3": "lumps on bones",
-        "4": "weak bones",
-        "5": "fractures",
-        "6": "joint pain"
+        "1": "Dor nos ossos",
+        "2": "Inflamação",
+        "3": "Caroço nos Ossos",
+        "4": "Ossos Fracos",
+        "5": "Fraturas",
+        "6": "Dores nas articulações"
       }
     },
     {
       "name": "Tumor no Cerebro",
       "rules": {
-        "1": "headaches",
-        "2": "seizures",
-        "3": "fits",
-        "4": "mental changes",
-        "5": "behavioural changes",
-        "6": "memory problems",
-        "7": "paralyses of parts of body"
+        "1": "Dor de Cabeça",
+        "2": "Convulsões",
+        "3": "Epilepsia",
+        "4": "Mudanças Mentais",
+        "5": "Mudanças Comportamentais",
+        "6": "Problemas de Memória",
+        "7": "Paralisia de Parte do Corpo"
       }
     },
     {
       "name": "Bronquite",
       "rules": {
         "1": "coughing",
-        "2": "fevers",
-        "3": "asthma",
-        "4": "heart pain"
+        "2": "Febre",
+        "3": "Asma",
+        "4": "Dor no coração"
       }
     },
     {
       "name": "Infecção no peito",
       "rules": {
-        "1": "coughing",
-        "2": "mucus",
-        "3": "fevers",
-        "4": "rapid heartbeat",
-        "5": "tight chest",
-        "6": "chest pain",
-        "7": "wheezing"
+        "1": "Tosse",
+        "2": "Catarro no pulmão",
+        "3": "Febre",
+        "4": "Batimento Cardíaco Acelerado",
+        "5": "Peito Apertado",
+        "6": "Dor no Peito",
+        "7": "Respiração Ofegante"
       }
     },
     {
       "name": "Gripe",
       "rules": {
-        "1": "runny nose",
-        "2": "block nose",
-        "3": "sneezing",
-        "4": "sore throat",
-        "5": "throat pain"
+        "1": "Coriza",
+        "2": "Nariz Entupido",
+        "3": "Espirrando",
+        "4": "Garganta Seca",
+        "5": "Dor de Garganta"
       }
     },
     {
       "name": "Ansiedade",
       "rules": {
-        "1": "stress",
-        "2": "headaches",
-        "3": "no sleep",
-        "4": "loss of appetite",
-        "5": "mood swings",
-        "6": "dizziness"
+        "1": "Estresse",
+        "2": "Dor de Cabeça",
+        "3": "Insônia",
+        "4": "Perda de Apetite",
+        "5": "Mudança de humor",
+        "6": "Tontura"
       }
     }
   ]

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QCheckBox, QPushButton, QGroupBox, QTextBrowser, QLabel
+from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 from engine.inference import Inference
@@ -10,6 +10,10 @@ class GUI(QMainWindow):
         super().__init__()
 
         self.symptoms = [False] * 39
+        self.chatInput = ""
+        self.inferenceEngine = None
+        self.createInferenceEngine()
+        self.userInput = None
 
         cb = QCheckBox('Respiração Ofegante', self)
         cb.move(20, 20)
@@ -210,11 +214,12 @@ class GUI(QMainWindow):
         groubBox.move(500, 5)
         groubBox.resize(250,50)
 
+        self.resultados = QTextBrowser(groubBox)
+
         groubBox2 = QGroupBox("Certeza", self)
         groubBox2.move(500, 60)
         groubBox2.resize(200,25)
 
-        self.resultados = QTextBrowser(groubBox)
         self.certeza = QTextBrowser(groubBox2)
 
         #resultados.setGeometry(QtCore.QRect(10, 90, 100, 100))
@@ -224,13 +229,36 @@ class GUI(QMainWindow):
         accept_button.move(800, 50)
         accept_button.clicked.connect(self.accepted)
 
+        groubBox3 = QGroupBox("Chat", self)
+        groubBox3.move(500, 120)
+        groubBox3.resize(250,200)
+
+        self.chat = QTextBrowser(groubBox3)
+        self.chat.append("Rick: Qual é o seu problema")
+
+
+        groubBox4 = QGroupBox("ChatInput", self)
+        groubBox4.move(500, 330)
+        groubBox4.resize(135, 35)
+
+
+        self.lineEdit = QLineEdit(groubBox4)
+        self.lineEdit.returnPressed.connect(self.onClick)
+
         photo = QLabel(self)
-        photo.setGeometry(QtCore.QRect(500, 80, 900, 500))
+        photo.setGeometry(QtCore.QRect(770, 120, 200, 350))
         photo.setPixmap(QtGui.QPixmap("rick.png"))
+        photo.setScaledContents(True)
 
         self.setGeometry(500,600,1000,500)
-        self.setWindowTitle("Sistema Expecialista - Diagnóstico de Doenças")
+        self.setWindowTitle("Sistema Especialista - Diagnóstico de Doenças")
         self.show()
+
+    def onClick(self):
+        self.userInput = str(self.lineEdit.text())
+        self.chat.append("Você: " + self.userInput)
+        self.lineEdit.clear()
+        self.accepted()
 
     def checklist0(self):
         self.symptoms[0] = not self.symptoms[0]
@@ -349,18 +377,35 @@ class GUI(QMainWindow):
     def checklist38(self):
         self.symptoms[38] = not self.symptoms[38]
 
-    def accepted(self):
-        userInput = self.symptoms
-        #print(self.symptoms)
-        
+    def createInferenceEngine(self):
         knowledgeBaseFile = "./data/diseases/knowledge.json"
         clauseBaseFile = "./data/diseases/clause.json"
-        inferenceEngine = Inference()
-        inferenceEngine.startEngine(knowledgeBaseFile,
+        self.inferenceEngine = Inference()
+        self.inferenceEngine.startEngine(knowledgeBaseFile,
                             clauseBaseFile,
-                            userInput,
+                            userInput="",
                             verbose=True,
-                            method=inferenceEngine.BACKWARD)
+                            method=self.inferenceEngine.BACKWARD)
+
+    def accepted(self):
+        useText = True
+        userInput = self.userInput
+        for symptom in self.symptoms:
+            if symptom == True:
+                userInput = self.symptoms
+                useText = False
+                break
+        #print(self.symptoms)
+        
         #print(inferenceEngine.clause)
-        self.resultados.setText(inferenceEngine.clause)
-        self.certeza.setText(str(math.ceil(inferenceEngine.percent)) + "% de confiança")
+        
+        self.inferenceEngine.askQuestion(userInput, useText)
+        self.chat.append("Rick: " + self.inferenceEngine.getCurrentQuestion())
+        self.resultados.setText(self.inferenceEngine.clause)
+        self.certeza.setText(str(math.ceil(self.inferenceEngine.percent)) + "% de confiança")
+
+        if self.inferenceEngine.getCurrentQuestionIndex() < self.inferenceEngine.getQuestions():
+            self.inferenceEngine.nextQuestionIndex()
+
+        
+        #self.chat.append("You: Wow\n" + "Rick: Noice\n" + "You: What you say\n")

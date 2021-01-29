@@ -5,5 +5,12 @@
       "positive": "Acredito que tenha sintomas de ",
       "negative": "Não tenho certeza, mas você tem alguns sinais de "
     }
+  },
+  "2": {
+  	"question": "Está sentindo mais alguma coisa?",
+  	"answer": {
+  		"positive" : "Acredito que tenha sintomas de ",
+  		"negative" : "Ainda não tenho certeza, mas você tem alguns sinais de "
+  	}
   }
 }
